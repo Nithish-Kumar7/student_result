@@ -1,0 +1,41 @@
+-- Create the students_result database
+CREATE DATABASE IF NOT EXISTS students_result;
+
+-- Use the students_result database
+USE students_result;
+
+-- Create the students table for storing student login information
+CREATE TABLE IF NOT EXISTS students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    roll_number VARCHAR(20) NOT NULL UNIQUE,
+    date_of_birth DATE NOT NULL
+);
+
+-- Create the results table for storing semester results
+CREATE TABLE IF NOT EXISTS results (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    roll_number VARCHAR(20) NOT NULL,
+    year INT NOT NULL,
+    semester INT NOT NULL,
+    marks INT NOT NULL,
+    subject VARCHAR(20) NOT NULL,
+    FOREIGN KEY (roll_number) REFERENCES students(roll_number) ON DELETE CASCADE
+);
+
+-- Inserting dummy data into students table for testing
+INSERT INTO students (roll_number, date_of_birth) VALUES
+('A101', '2000-01-15'),
+('B202', '2001-03-22'),
+('C303', '2000-06-30');
+
+-- Inserting dummy data into results table for testing
+INSERT INTO results (roll_number, year, semester, marks, subject) VALUES
+('A101', 2022, 1, 85, 'CN'),
+('A101', 2022, 2, 78, 'IOT'),
+('A101', 2022, 3, 92, 'DAA'),
+('B202', 2022, 1, 75, 'CN'),
+('B202', 2022, 2, 88, 'DSA'),
+('B202', 2022, 3, 95, 'DAA'),
+('C303', 2022, 1, 92, 'IOT'),
+('C303', 2022, 2, 80, 'TOC'),
+('C303', 2022, 3, 87, 'OS');
